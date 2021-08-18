@@ -30,7 +30,7 @@ pipeline {
         }
 	    stage("git clone") {
 		    steps {
-		      sh "https://github.com/saikrishnanarina/dev.git"
+		      git "https://github.com/saikrishnanarina/dev.git"
 		    }
 	    }
         stage("Build docker file") {
