@@ -6,6 +6,8 @@ COPY package*.json ./
 
 RUN npm install
 
+COPY . .
+
 COPY /opt/tomcat/webapps/boxfuse.war ./
 
 EXPOSE 3000
