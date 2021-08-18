@@ -6,7 +6,7 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY /opt/tomcat/webapps/boxfuse.war ./usr/src/app/
+COPY /opt/tomcat/webapps/boxfuse.war ./
 
 EXPOSE 3000
 CMD [ "node", "index.js" ]
