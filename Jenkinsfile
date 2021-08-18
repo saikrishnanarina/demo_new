@@ -1,6 +1,8 @@
 
 pipeline {
 	agent any
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	
     stages {
       stage ("git checkout") {
@@ -40,9 +42,7 @@ pipeline {
                 
             }
         }
-	    environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
-	}
+	    
         stage('Login') {
             steps {
               sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
@@ -51,9 +51,9 @@ pipeline {
         stage('Push') {
              steps {
               sh 'docker push sainarina22/webapp:latest'
-                        }
-                
-                }
+                        }       
+	}
+	}
     }
 	
 }
