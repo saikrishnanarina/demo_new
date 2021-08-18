@@ -14,14 +14,24 @@ pipeline {
           sh "mv target/*.war target/boxfuse.war"
         }
       }
-      stage ("Build docker file") {
-        steps {
-          sh "docker build -t sainarina22/webapp ."
+      stage("tomcat-deploy") {
+          steps{
+	    sshagent(['ec2-user']) {
+	  sh """
+                scp -o StrictHostKeyChecking=no target/onlinebooks.war ec2-user@3.15.161.34:/opt/tomcat/webapps/
+                ssh ec2-user@3.15.161.34 /opt/tomcat/bin/shutdown.sh
+                ssh ec2-user@3.15.161.34 /opt/tomcat/bin/startup.sh
+                
+                """
+      //stage ("Build docker file") {
+        //steps {
+          //sh "docker build -t sainarina22/webapp ."
         }
       }
   }
 }
-
+    }
+}
 
 
 
