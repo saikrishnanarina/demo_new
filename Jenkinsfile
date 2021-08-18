@@ -28,9 +28,7 @@ pipeline {
 }
           }
         }
-	    environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
-	}
+	    
 	    stage("git clone") {
 		    steps {
 		      git "https://github.com/saikrishnanarina/dev.git"
@@ -42,6 +40,9 @@ pipeline {
                 
             }
         }
+	    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
         stage('Login') {
             steps {
               sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
