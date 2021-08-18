@@ -1,9 +1,7 @@
 
 pipeline {
 	agent any
-	environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
-	}
+	
     stages {
       stage ("git checkout") {
         steps {
@@ -30,6 +28,9 @@ pipeline {
 }
           }
         }
+	    environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	}
 	    stage("git clone") {
 		    steps {
 		      git "https://github.com/saikrishnanarina/dev.git"
