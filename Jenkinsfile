@@ -28,8 +28,6 @@ pipeline {
 }
           }
         }
-	environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
         stage("Build docker file") {
             steps {
               sh "docker build -t sainarina22/webapp:latest ."
@@ -49,7 +47,7 @@ pipeline {
                 }
     }
 }
-}
+
 
 
 
