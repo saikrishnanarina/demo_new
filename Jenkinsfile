@@ -1,8 +1,7 @@
 
 pipeline {
-	agent {label, 'docker'}
-    environment {
-		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+	agent any
+    
     stages {
       stage ("git checkout") {
         steps {
@@ -29,6 +28,8 @@ pipeline {
 }
           }
         }
+	environment {
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
         stage("Build docker file") {
             steps {
               sh "docker build -t sainarina22/webapp:latest ."
