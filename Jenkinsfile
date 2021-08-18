@@ -28,6 +28,11 @@ pipeline {
 }
           }
         }
+	    stage("git clone") {
+		    steps {
+		      sh "https://github.com/saikrishnanarina/dev.git"
+		    }
+	    }
         stage("Build docker file") {
             steps {
               sh "docker build -t sainarina22/webapp:latest ."
