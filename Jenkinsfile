@@ -19,7 +19,7 @@ pipeline {
                 sshagent(['ec2-user']) {
                 //sshagent(['deploy-tomcat']) {
                     sh """
-                scp -o StrictHostKeyChecking=no target/onlinebooks.war ec2-user@172.31.30.3:/opt/tomcat/webapps/
+                scp -o StrictHostKeyChecking=no target/boxfuse.war ec2-user@172.31.30.3:/opt/tomcat/webapps/
                 ssh ec2-user@172.31.30.3 /opt/tomcat/bin/shutdown.sh
                 ssh ec2-user@172.31.30.3 /opt/tomcat/bin/startup.sh
                 
