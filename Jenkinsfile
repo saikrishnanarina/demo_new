@@ -54,7 +54,7 @@ pipeline {
                 }
         stage('Push') {
              steps {
-              sh 'docker push devops'
+              sh 'docker push sainarina22/webapp:latest'
                         }       
 	}
 	}
