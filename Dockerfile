@@ -1,10 +1,9 @@
-FROM node:latest
+FROM tomcat:8.0-alpine
 
-WORKDIR /usr/src/app
+RUN mkdir app
 
-COPY package*.json ./
+WORKDIR /app
 
-RUN npm install
+ADD 'sample.war' /app
 
-EXPOSE 3000
-CMD [ "node", "index.js" ]
+EXPOSE 9999
