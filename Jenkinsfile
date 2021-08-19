@@ -37,7 +37,7 @@ pipeline {
                 scp -o StrictHostKeyChecking=no target/boxfuse.war ec2-user@172.31.30.3:/opt/tomcat/webapps/
                 ssh ec2-user@172.31.30.3 /opt/tomcat/bin/shutdown.sh
                 ssh ec2-user@172.31.30.3 /opt/tomcat/bin/startup.sh
-		cd ec2-user@172.31.30.3 /opt/tomcat/webapps/
+		ssh ec2-user@172.31.30.3 /opt/tomcat/webapps/
 		docker start sainarina22/webapp:latest
 		docker cp ./boxfuse.war sainarina22:/
                 
