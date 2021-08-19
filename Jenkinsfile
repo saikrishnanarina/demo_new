@@ -16,21 +16,7 @@ pipeline {
                 sh "mv target/*.war target/boxfuse.war"
             }
         }
-        stage("tomcat-deploy") {
-          steps{
-               //sshagent(['root1']) {
-                sshagent(['ec2-user']) {
-                //sshagent(['deploy-tomcat']) {
-                    sh """
-                scp -o StrictHostKeyChecking=no target/boxfuse.war ec2-user@172.31.30.3:/opt/tomcat/webapps/
-                ssh ec2-user@172.31.30.3 /opt/tomcat/bin/shutdown.sh
-                ssh ec2-user@172.31.30.3 /opt/tomcat/bin/startup.sh
-                
-                """
-}
-          }
-        }
-	    
+        
 	    stage("git clone") {
 		    steps {
 		      git "https://github.com/saikrishnanarina/dev.git"
@@ -39,9 +25,27 @@ pipeline {
         stage("Build docker file") {
             steps {
               sh "docker build -t sainarina22/webapp:latest ."
+	      sh "docker start sainarina22/webapp:latest"
                 
             }
         }
+	    stage("tomcat-deploy") {
+          steps{
+               //sshagent(['root1']) {
+                sshagent(['ec2-user']) {
+                //sshagent(['deploy-tomcat']) {
+                    sh """
+                scp -o StrictHostKeyChecking=no target/boxfuse.war ec2-user@172.31.30.3:/opt/tomcat/webapps/
+                ssh ec2-user@172.31.30.3 /opt/tomcat/bin/shutdown.sh
+                ssh ec2-user@172.31.30.3 /opt/tomcat/bin/startup.sh
+		cd ec2-user@172.31.30.3 /opt/tomcat/webapps/
+		docker cp ./boxfuse.war sainarina22:/
+                
+                """
+}
+          }
+        }
+	    
 	    
         stage('Login') {
             steps {
