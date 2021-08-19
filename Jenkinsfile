@@ -25,7 +25,6 @@ pipeline {
         stage("Build docker file") {
             steps {
               sh "docker build -t sainarina22/webapp:latest ."
-	      sh "docker start sainarina22/webapp:latest"
                 
             }
         }
@@ -39,6 +38,7 @@ pipeline {
                 ssh ec2-user@172.31.30.3 /opt/tomcat/bin/shutdown.sh
                 ssh ec2-user@172.31.30.3 /opt/tomcat/bin/startup.sh
 		cd ec2-user@172.31.30.3 /opt/tomcat/webapps/
+		docker start sainarina22/webapp:latest
 		docker cp ./boxfuse.war sainarina22:/
                 
                 """
