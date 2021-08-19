@@ -54,7 +54,7 @@ pipeline {
                 }
         stage('Push') {
              steps {
-              sh 'docker push sainarina22/devops'
+              sh 'docker push devops'
                         }       
 	}
 	}
