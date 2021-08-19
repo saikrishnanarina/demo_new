@@ -38,8 +38,7 @@ pipeline {
                 ssh ec2-user@172.31.30.3 /opt/tomcat/bin/shutdown.sh
                 ssh ec2-user@172.31.30.3 /opt/tomcat/bin/startup.sh
 		ssh ec2-user@172.31.30.3 cd /opt/tomcat/webapps/
-		ssh ec2-user@172.31.30.3 docker start sainarina22/webapp:latest
-		ssh ec2-user@172.31.30.3 docker cp ./boxfuse.war sainarina22:/
+		ssh ec2-user@172.31.30.3 docker cp ./boxfuse.war devops:/
                 
                 """
 }
