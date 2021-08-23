@@ -17,7 +17,7 @@ pipeline {
             }
         }
 	    stage("clone dockerfile") {
-		    staps {
+		    steps {
 		     git "https://github.com/saikrishnanarina/dev"
 		    }
 	    }
@@ -39,10 +39,7 @@ pipeline {
                         }       
 	}
 	}
-    
-	
-
-
+}
 
 
 
