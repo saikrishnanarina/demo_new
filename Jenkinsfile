@@ -16,6 +16,11 @@ pipeline {
                 sh "mv target/*.war target/sample.war"
             }
         }
+	    stage("clone dockerfile") {
+		    staps {
+		     git "https://github.com/saikrishnanarina/dev"
+		    }
+	    }
         stage("Build docker file") {
             steps {
               sh "docker build -t sainarina22/sample:latest ."
