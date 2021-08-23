@@ -13,39 +13,15 @@ pipeline {
         stage("Maven Build") {
             steps{
                 sh "mvn clean install"
-                sh "mv target/*.war target/boxfuse.war"
+                sh "mv target/*.war target/sample.war"
             }
         }
-        
-	    stage("git clone") {
-		    steps {
-		      git "https://github.com/saikrishnanarina/dev.git"
-		    }
-	    }
         stage("Build docker file") {
             steps {
-              sh "docker build -t sainarina22/webapp:latest ."
+              sh "docker build -t sainarina22/sample:latest ."
                 
             }
-        }
-	    stage("tomcat-deploy") {
-          steps{
-               //sshagent(['root1']) {
-                sshagent(['ec2-user']) {
-                //sshagent(['deploy-tomcat']) {
-                    sh """
-                scp -o StrictHostKeyChecking=no target/boxfuse.war ec2-user@172.31.30.3:/opt/tomcat/webapps/
-                ssh ec2-user@172.31.30.3 /opt/tomcat/bin/shutdown.sh
-                ssh ec2-user@172.31.30.3 /opt/tomcat/bin/startup.sh
-		ssh ec2-user@172.31.30.3 cd /opt/tomcat/webapps/
-		ssh ec2-user@172.31.30.3 cp /opt/tomcat/webapps/boxfuse.war /home/ec2-user/
-		ssh ec2-user@172.31.30.3 docker cp ./boxfuse.war devops:/
-                
-                """
-}
-          }
-        }
-	    
+       }    
 	    
         stage('Login') {
             steps {
@@ -54,7 +30,7 @@ pipeline {
                 }
         stage('Push') {
              steps {
-              sh 'docker push sainarina22/webapp:latest'
+              sh 'docker push sainarina22/sample:latest'
                         }       
 	}
 	}
